@@ -2,11 +2,25 @@ package com.epam.sudoku;
 
 import javafx.util.Pair;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Field {
     int[][] field;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Field field1 = (Field) o;
+        return Arrays.equals(field, field1.field);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(field);
+    }
 
     @Override
     public String toString() {
