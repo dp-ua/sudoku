@@ -4,7 +4,7 @@ package com.epam;
  * Hello world!
  *
  */
-public class App 
+public class HelloApp
 {
     public static void main( String[] args )
     {
