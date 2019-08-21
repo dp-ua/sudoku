@@ -1,39 +1,18 @@
 package com.epam.sudoku.service;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Cell {
     int row;
     int column;
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public Cell(int row, int column) {
-        this.row = row;
-        this.column = column;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return getRow() == cell.getRow() &&
-                getColumn() == cell.getColumn();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getRow(), getColumn());
-    }
 
     public Set<CellOption> getOptions() {
         Set<CellOption> result = new HashSet<>();
