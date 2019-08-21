@@ -5,12 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.epam</groupId>
-  <artifactId>tasks</artifactId>
+  <artifactId>sudoku</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>tasks</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>sudoku</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
