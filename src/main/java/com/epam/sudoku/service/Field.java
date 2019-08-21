@@ -1,6 +1,4 @@
-package com.epam.sudoku;
-
-import javafx.util.Pair;
+package com.epam.sudoku.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -8,6 +6,14 @@ import java.util.Set;
 
 public class Field {
     int[][] field;
+
+    public Set<Cell> cellSet() {
+        Set<Cell> result = new HashSet<>();
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                result.add(new Cell(i, j));
+        return result;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,7 +46,12 @@ public class Field {
     }
 
     public Field clone() {
-        int[][] newField = field;
+        int[][] newField = new int[field.length][field[0].length];
+        for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                newField[i][j] = field[i][j];
+
+
         return new Field(newField);
     }
 
@@ -65,6 +76,9 @@ public class Field {
         checkCellColumnCoordinates(column);
     }
 
+    public void setCell(Cell cell, int value) {
+        setCell(cell.getRow(), cell.getColumn(), value);
+    }
 
     public void setCell(int row, int column, int value) {
         checkCellCoordinates(row, column);
@@ -76,6 +90,11 @@ public class Field {
     public boolean isNotEmptyCell(int row, int column) {
         return field[row][column] != 0;
     }
+
+    public boolean isEmptyCell(Cell cell) {
+        return  isEmptyCell(cell.getRow(),cell.getColumn());
+    }
+
 
     public boolean isEmptyCell(int row, int column) {
         return field[row][column] == 0;
@@ -100,10 +119,10 @@ public class Field {
 
     public Set<Integer> getNumbersForSquare(int row, int column) {
         checkCellCoordinates(row, column);
-        Pair<Integer, Integer> squareStartCoordinates = getStartCoordinatesForSquare(row, column);
+        Cell squareStartCoordinates = getStartCoordinatesForSquare(row, column);
         Set<Integer> result = new HashSet<>();
-        for (int i = squareStartCoordinates.getKey(); i < squareStartCoordinates.getKey() + 3; i++)
-            for (int j = squareStartCoordinates.getValue(); j < squareStartCoordinates.getValue() + 3; j++)
+        for (int i = squareStartCoordinates.getRow(); i < squareStartCoordinates.getRow() + 3; i++)
+            for (int j = squareStartCoordinates.getColumn(); j < squareStartCoordinates.getColumn() + 3; j++)
                 if (isNumberGoodForAddToSet(result, i, j)) result.add(field[i][j]);
         return result;
     }
@@ -115,10 +134,15 @@ public class Field {
         return false;
     }
 
-    private Pair<Integer, Integer> getStartCoordinatesForSquare(int row, int column) {
+    public static Cell getStartCoordinatesForSquare(int row, int column) {
         int cellRow = (row / 3) * 3;
         int cellColum = (column / 3) * 3;
-        return new Pair<>(cellRow, cellColum);
+        return new Cell(cellRow, cellColum);
+    }
+
+    public static String getNameForSquare(int row, int column) {
+        Cell squareStartCoordinates = getStartCoordinatesForSquare(row, column);
+        return String.valueOf(squareStartCoordinates.getRow()) + squareStartCoordinates.getColumn();
     }
 
 }
